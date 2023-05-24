@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "ECqKpY7J7C9Z11Wkwgvo/Obm4H7e80kNaGat7N94WHavSHPiG83VfKhjMz0lHmWt4/bhQ52XCZrHdm78u4ncWw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\disrct\\Downloads\\SuperAutoMachines\\SuperAutoMachines.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://disrct:etsds10243110@10.224.200.26:8080'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
+}
