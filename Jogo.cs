@@ -11,6 +11,7 @@ public class Jogo
     // Seta valores iniciais
     private int Round { get; set; } = 0;
     private int VidaInicial { get; set; }
+    private int MoedasInicias { get; set; }
     private int LimiteMaquinasMercado { get; set; }
     private Jogador Jogador = null;
     private Mercado Mercado = null;
@@ -19,21 +20,14 @@ public class Jogo
     private JogadorArgs JogadorArgs = null;
     private BatalhaArgs BatalhaArgs = null;
     private MercadoArgs MercadoArgs = null;
-    private SetInicial SetInicial = null;
-    private ArgsInicial ArgsInicial = null;
 
-    public void Configurar()
-    {
-        SetInicial.Setup(ArgsInicial);
-    }
-
+    // Rodar o Jogo
     public void Executar()
-    {
-        while (this.Jogador.Vivo)
-        {
-            this.Mercado.Executar();
-            this.Batalha.Executar();
-        }
+    {   
+        this.MercadoArgs.Jogador = this.Jogador;
+        this.MercadoArgs.LimiteMaquinasMercado = this.LimiteMaquinasMercado;
+        this.Mercado = new Mercado();
+
     }
 
     // Define como vai funcionar o Builder
@@ -50,21 +44,9 @@ public class Jogo
             return this;
         }
 
-        public JogoBuilder SetJogador(Jogador jogador)
+        public JogoBuilder SetMoedasIniciais(int moedas)
         {
-            jogo.Jogador = jogador;
-            return this;
-        }
-
-        public JogoBuilder SetBatalha(Batalha batalha)
-        {
-            jogo.Batalha = batalha;
-            return this;
-        }
-
-        public JogoBuilder SetMercado(Mercado mercado)
-        {
-            jogo.Mercado = mercado;
+            jogo.MoedasInicias = moedas;
             return this;
         }
 
@@ -74,20 +56,12 @@ public class Jogo
             return this;
         }
 
-        public JogoBuilder SetSetInicial(SetInicial setInicial)
+        public JogoBuilder SetArgs()
         {
-            jogo.SetInicial = setInicial;
-            return this;
-        }
-
-        public JogoBuilder SetaFactory(IGameFactory factory)
-        {
-            jogo.Jogador = factory.CriaJogador();
-            jogo.PecaArgs = factory.CriaPecaArgs();
-            jogo.JogadorArgs = factory.CriaJogadorArgs();
-            jogo.BatalhaArgs = factory.CriaBatalhaArgs();
-            jogo.MercadoArgs = factory.CriaMercadoArgs();
-            jogo.ArgsInicial = factory.CriaArgsInicial();
+            jogo.PecaArgs = new PecaArgs();
+            jogo.JogadorArgs = new JogadorArgs();
+            jogo.MercadoArgs = new MercadoArgs();
+            jogo.BatalhaArgs = new BatalhaArgs();
             return this;
         }
     }

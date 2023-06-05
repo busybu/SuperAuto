@@ -6,7 +6,7 @@ public abstract class Batalha
     public var Jogador { get; set; }
     public var Inimigo { get; set; }
     public abstract int Luta() { }
-    public abstract void GerarInimigos() { }
+    public abstract void GerarInimigos() { } //Atualizacao
     public abstract void RodaMetodosIniciais() { }
 }
 
@@ -28,9 +28,9 @@ public class BatalhaPadrao
 
         while (maquinasInimigo.Count() > 0 && maquinasJogador.Count() > 0)
         {
-            maquinasInimigo[0].Atacar(maquinasJogador[0]);
-            maquinasJogador[0].Atacar(maquinasInimigo[0]);
-
+            (maquinasJogador, maquinasInimigo) = maquinasInimigo[0].Atacar(maquinasJogador, maquinasInimigo);
+            (maquinasInimigo, maquinasJogador) = maquinasJogador[0].Atacar(maquinasInimigo, maquinasJogador);
+            
             if (maquinasInimigo[0].Vida <= 0)
             {
                 maquinasInimigo.RemoveAt(0);

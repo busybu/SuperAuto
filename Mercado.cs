@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 public abstract class Mercado
 {
     public Random Rand { get; set; }
-    public var PecaAtual { get; set; } 
+    public Peca PecaAtual { get; set; } 
     public Jogador Jogador { get; set; }
-    public List<T> PecasDoJogo { get; set;}
-    public List<T> PecasDisponiveis { get; set;}
+    public List<Peca> PecasDoJogo { get; set;}
+    public List<Peca> PecasDisponiveis { get; set;}
     public int LimiteMaquinasMercado { get; set; }
     public abstract void Vender() { }
     public abstract void Comprar() { }
     public abstract void Atualizar() { }
     public abstract void JuntarPeca() { }
+    public abstract void Sair() { }
 }
 
 public class MercadoPadrao : Mercado 
@@ -20,7 +22,6 @@ public class MercadoPadrao : Mercado
     public MercadoPadrao(MercadoArgs args)
     {
         this.PecaAtual = null;
-        this.rand = args.Rand;
         this.Jogador = args.Jogador;
         this.PecasDoJogo = args.PecasDoJogo;
         this.PecasDisponiveis = args.PecasDisponiveis;
@@ -55,7 +56,7 @@ public class MercadoPadrao : Mercado
     {
         if(this.Jogador.Maquinas[indexPeca] != null)
         {
-            this.Jogador.Moedas += this.Jogador.Maquinas[indexPeca].Valor;
+            this.Jogador.Moedas += this.Jogador.Maquinas[indexPeca].PedirValor();
             this.Jogador.Maquinas[indexPeca] = null;
         }
     }
@@ -86,6 +87,13 @@ public class MercadoPadrao : Mercado
             peca1.Nivel = novoNivel;
 
             return peca1;
+        }
+    }
+    public override void Sair()
+    {
+        for(int i = 0; i < PecasDisponiveis.Count(); i++)
+        {
+            PecasDisponiveis[i].Buff(MercadoArgs);
         }
     }
   
